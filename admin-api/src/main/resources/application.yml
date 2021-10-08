@@ -1,0 +1,70 @@
+spring:
+  profiles:
+    active: dev
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
+  mail:
+    host: smtp.qq.com
+    username: 164****369@qq.com
+    password: km*****bhe
+    default-encoding: utf-8
+
+server:
+  port: 8081
+  tomcat:
+    # 解决get参数不支持特殊符号 https://www.jianshu.com/p/eec4ae71e5cb
+    relaxed-query-chars:
+      - '['
+      - ']'
+
+mybatis-plus:
+  #实体类扫描路径
+  type-aliases-package: cc.cary.vel.core.sys.entities
+  #xml扫描路径
+  mapper-locations: classpath:mapper/*/*.xml
+
+jwt:
+  # jwt 密钥
+  secret: 6sqGjmX3m6R4TMAVIQ+GmNdJJuGxzCp3FMeOn3WSVF0=
+  # jwt 过期时间 两小时 单位秒
+  expire_time: 7200
+
+shiro:
+  # 开启aop日志记录
+  aop-log: true
+  # 免认证的路径配置
+  anon_url:
+    - /
+    - /favicon.ico
+    - /static/**
+    - /file/**
+    - /test/**
+    - /site/login
+    - /site/captcha
+    - /cron/**
+
+sys:
+  # redis key前缀
+  cache-prefix: "vel:"
+  #上传方式：local 本地、ali 阿里oss
+  upload-type: ali
+  # 定时器请求secret
+  cron-secret: aAuwUu6L3qEPkSYXLU7IdIIi5pyYEpkI
+  # 跨域配置
+  cors:
+    # 同源允许的域名请求，* 表示接受任意域名的请求
+    origin: "*"
+    # 允许跨域的请求方法
+    methods: GET,POST,OPTIONS,PUT,DELETE
+  # xss配置
+  xss:
+    # 是否过滤富文本
+    is-include-rich-text: false
+    # 忽略过滤的 url
+    excludes:
+      - /
+      - /favicon.ico
+      - /file/**
+      - /file-operation/upload

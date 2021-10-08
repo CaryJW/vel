@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cc.cary.vel.core.sys.mapper.RoleMapper">
+    <select id="findUserRoleByUserId" parameterType="long" resultType="cc.cary.vel.core.sys.entities.Role">
+        SELECT
+            r.*
+        FROM
+            v_role r
+        LEFT JOIN v_admin_user_role ur ON (r.id = ur.role_id)
+        LEFT JOIN v_admin_user u ON (u.id = ur.admin_user_id)
+        WHERE
+            u.id = #{userId}
+    </select>
+
+    <select id="findUserRoleByUserIds" parameterType="java.util.List" resultType="cc.cary.vel.core.sys.entities.Role">
+        SELECT
+        r.*,u.id as admin_user_id
+        FROM
+        v_role r
+        LEFT JOIN v_admin_user_role ur ON (r.id = ur.role_id)
+        LEFT JOIN v_admin_user u ON (u.id = ur.admin_user_id)
+        WHERE
+        u.id in
+        <foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+
+    <select id="findForPage" resultType="cc.cary.vel.core.sys.entities.Role">
+        select * from v_role
+        where 1=1
+        <if test="params.roleName != null and params.roleName !=''">
+            and role_name LIKE CONCAT('%',#{params.roleName},'%')
+        </if>
+    </select>
+</mapper>

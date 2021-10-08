@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cc.cary.vel.core.monitor.mapper.LoginLogMapper">
+    <select id="findForPage" resultType="cc.cary.vel.core.monitor.entities.LoginLog">
+        select * from v_login_log
+        where 1=1
+        <if test="params.username != null and params.username !=''">
+            and username LIKE CONCAT('%',#{params.username},'%')
+        </if>
+        <if test="params.loginTimeStart != null and params.loginTimeStart !=''">
+            and login_time &gt;= #{params.loginTimeStart}
+        </if>
+        <if test="params.loginTimeEnd != null and params.loginTimeEnd !=''">
+            and login_time &lt;= #{params.loginTimeEnd}
+        </if>
+    </select>
+
+    <select id="batchCount" resultType="java.lang.Integer">
+        select count(1) from v_login_log
+        where 1=1
+        <if test="params.username != null and params.username !=''">
+            and username LIKE CONCAT('%',#{params.username},'%')
+        </if>
+        <if test="params.createTimeStart != null and params.createTimeStart !=''">
+            and create_time &gt;= #{params.createTimeStart}
+        </if>
+        <if test="params.createTimeEnd != null and params.createTimeEnd !=''">
+            and create_time &lt;= #{params.createTimeEnd}
+        </if>
+    </select>
+
+    <select id="batchData" resultType="cc.cary.vel.core.monitor.entities.LoginLog">
+        select * from v_login_log
+        where 1=1
+        <if test="params.username != null and params.username !=''">
+            and username LIKE CONCAT('%',#{params.username},'%')
+        </if>
+        <if test="params.createTimeStart != null and params.createTimeStart !=''">
+            and create_time &gt;= #{params.createTimeStart}
+        </if>
+        <if test="params.createTimeEnd != null and params.createTimeEnd !=''">
+            and create_time &lt;= #{params.createTimeEnd}
+        </if>
+        limit #{offset},#{limit}
+    </select>
+</mapper>

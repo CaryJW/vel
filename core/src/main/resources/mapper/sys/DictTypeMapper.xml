@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cc.cary.vel.core.sys.mapper.DictTypeMapper">
+    <select id="findForPage" resultType="cc.cary.vel.core.sys.entities.DictType">
+        select * from v_dict_type
+        where 1=1
+        <if test="params.name != null and params.name !=''">
+            and name LIKE CONCAT('%',#{params.name},'%')
+        </if>
+        <if test="params.type != null and params.type != ''">
+            and status = #{params.type}
+        </if>
+    </select>
+</mapper>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cc.cary.vel.core.sys.mapper.DictDataMapper">
+    <select id="findForPage" resultType="cc.cary.vel.core.sys.entities.DictData">
+        select * from v_dict_data
+        where 1=1
+        <if test="params.type != null and params.type !=''">
+            and type = #{params.type}
+        </if>
+        <if test="params.label != null and params.label !=''">
+            and label = #{params.label}
+        </if>
+        <if test="params.value != null and params.value != ''">
+            and value = #{params.value}
+        </if>
+        <if test="params.status != null and params.status != ''">
+            and status = #{params.status}
+        </if>
+    </select>
+
+    <select id="getDictDataByType" resultType="cc.cary.vel.core.sys.entities.DictData">
+        select *
+        from v_dict_data
+        where type = #{type}
+          and status = 0
+        order by sort asc, id desc
+    </select>
+</mapper>
