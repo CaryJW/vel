@@ -117,9 +117,13 @@ sys:
 void saveLog(ProceedingJoinPoint point, Log log);
 ````
 
-## 代码生成
+## 代码自动生成
 
 ````
-运行 core/src/main/java/..../CodeGenerator.java
+配置运行 core/src/main/java/..../CodeGenerator.java
 ````
+
+## 部署
+* 将 `vel-admin` 前端文件打包，覆盖 `vel\admin-api\src\main\resources\public`
+* maven 打包
 
